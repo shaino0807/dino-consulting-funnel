@@ -44,3 +44,36 @@ npm run build
 - 服務項目：`src/data/services.ts`
 
 所有外部連結目前都使用 `https://example.com` 或測試信箱，正式發布前請替換成你的實際網址。
+
+## Portable project skills
+
+Portable project-local skills live in:
+
+```text
+project-skills/
+```
+
+To restore skills on a new computer:
+
+```powershell
+.\scripts\restore-skills.ps1
+```
+
+The restore script copies missing skills into the user's global Codex skills folder and does not overwrite existing global skills.
+
+## Project work mode
+
+This project uses the #07 / `project-init-sync` work mode:
+
+- Fixed project rules live in `AGENTS.md`.
+- Portable project-local skills live in `project-skills/`.
+- Missing project skills can be restored with `.\scripts\restore-skills.ps1`.
+- Obsidian cockpit setup is pending a vault path and vault-relative note path.
+- GitHub repo, push, and GitHub Pages setup are blocked until GitHub CLI is re-authenticated.
+- Firebase MCP is skipped unless explicitly requested.
+
+Local work folder:
+
+```text
+C:\Users\shaino\Documents\互動式網頁工程師Agent
+```
