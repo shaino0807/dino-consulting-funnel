@@ -49,6 +49,7 @@ token*.json
 *.db-wal
 
 *.log
+.data/
 .DS_Store
 Thumbs.db
 desktop.ini

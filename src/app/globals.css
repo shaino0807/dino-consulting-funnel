@@ -4,18 +4,18 @@
 
 @layer base {
   :root {
-    --background: 44 33% 96%;
-    --foreground: 222 25% 12%;
+    --background: 34 56% 94%;
+    --foreground: 24 36% 10%;
     --card: 0 0% 100%;
     --card-foreground: 222 25% 12%;
-    --primary: 162 58% 28%;
+    --primary: 24 50% 28%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 11 78% 94%;
-    --secondary-foreground: 12 70% 24%;
-    --muted: 210 22% 92%;
-    --muted-foreground: 218 12% 38%;
-    --accent: 43 92% 62%;
-    --accent-foreground: 32 64% 16%;
+    --secondary: 33 62% 90%;
+    --secondary-foreground: 24 48% 22%;
+    --muted: 36 36% 88%;
+    --muted-foreground: 27 20% 35%;
+    --accent: 153 24% 40%;
+    --accent-foreground: 40 50% 96%;
     --destructive: 0 74% 52%;
     --destructive-foreground: 0 0% 100%;
     --border: 220 15% 84%;
@@ -52,6 +52,11 @@
 
   body {
     @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  ::selection {
+    background: #d6b086;
+    color: #241812;
   }
 }
 

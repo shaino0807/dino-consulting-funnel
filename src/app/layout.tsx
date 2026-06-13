@@ -3,13 +3,13 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "亨尼財商輕聊｜小資現金流地圖",
+  title: "Dino080077-Do理in財 | 小資族現金流整理",
   description:
-    "幫助小資族檢查財務體質、ETF 配置、退休缺口與現金流風險，建立看得懂、做得到的理財計畫。",
+    "幫小資族把看不懂的投資理財，變成聽得懂、做得到的現金流計畫。",
   openGraph: {
-    title: "亨尼財商輕聊｜小資現金流地圖",
+    title: "Dino080077-Do理in財",
     description:
-      "幫助小資族檢查財務體質、ETF 配置、退休缺口與現金流風險，建立看得懂、做得到的理財計畫。",
+      "拆解 ETF、存股、退休現金流與投資焦慮，讓理財回到生活選擇。",
     type: "website",
     locale: "zh_TW"
   }
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1e715d"
+  themeColor: "#6b3f24"
 };
 
 export default function RootLayout({

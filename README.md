@@ -1,49 +1,103 @@
-# 亨尼財商輕聊｜小資現金流地圖
+# Dino080077-Do理in財 導流網站
 
-這是一個可部署到 Vercel 的個人品牌導流頁，適合放在 Instagram、Threads、Facebook、YouTube 等社群個人介紹連結中。
+這是一個給小資族與投資理財陌生客戶使用的個人宣傳導流網站。首頁用溫暖、專業、木質咖啡米色系設計，集中呈現服務項目、Instagram 入口、預約整理 CTA 與客戶需求表單。
 
-## 技術
+## 主要功能
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- shadcn/ui 風格元件
-- lucide-react
+- 個人品牌首頁：`Dino080077-Do理in財`
+- 宣傳文案與服務項目
+- Framer Motion 互動動畫
+- CTA 點擊追蹤
+- 客戶需求表單
+- 後臺數據頁：`/admin/analytics`
+- 後端追蹤 API：`/api/analytics`
 
-## 功能
+## 本機開發
 
-- Hero 個人品牌區
-- 服務項目卡片
-- Link in Bio 大型 CTA 連結
-- 專業介紹與信任指標
-- 互動式「小資現金流地圖」前端 demo
-- 社群 icon links
-- SEO metadata 與 RWD
+```powershell
+npm.cmd install
+npm.cmd run dev -- --hostname 127.0.0.1 --port 3000
+```
 
-## 開發
+或使用專案腳本：
 
-```bash
-npm install
-npm run dev
+```powershell
+.\scripts\start-dev-server.ps1
+```
+
+本機網址：
+
+```text
+http://127.0.0.1:3000
+```
+
+後臺數據：
+
+```text
+http://127.0.0.1:3000/admin/analytics
 ```
 
 ## 驗證
 
-```bash
-npm run typecheck
-npm run lint
-npm run build
+```powershell
+npm.cmd run typecheck
+npm.cmd run lint
+npm.cmd run build
 ```
 
-## 修改資料
+## 修改內容
 
-- 個人品牌資料：`src/data/profile.ts`
-- 主要連結按鈕：`src/data/links.ts`
-- 服務項目：`src/data/services.ts`
+- 首頁 UI：`src/components/dino/DinoLandingPage.tsx`
+- 品牌與服務資料：`src/data/dino-site.ts`
+- 追蹤 API：`src/app/api/analytics/route.ts`
+- 後臺頁：`src/app/admin/analytics/page.tsx`
+- 事件儲存：`src/lib/analytics-store.ts`
 
-所有外部連結目前都使用 `https://example.com` 或測試信箱，正式發布前請替換成你的實際網址。
+## 後臺與資料
+
+追蹤資料預設寫入：
+
+```text
+.data/analytics-events.jsonl
+```
+
+`.data/` 已被 `.gitignore` 忽略，避免客戶資料進入版本控制。
+
+可用環境變數指定持久化路徑：
+
+```text
+ANALYTICS_DATA_DIR=D:\dino-analytics-data
+```
+
+正式部署時請設定後臺 key：
+
+```text
+ANALYTICS_ADMIN_KEY=your-private-key
+```
+
+設定後，後臺網址格式為：
+
+```text
+https://your-domain.example/admin/analytics?key=your-private-key
+```
+
+Production 環境若沒有設定 `ANALYTICS_ADMIN_KEY`，後臺不會顯示資料。
+
+## 對外部署注意
+
+這個專案需要 Next.js Node runtime，因為 `/api/analytics` 與 `/admin/analytics` 會在伺服器端處理資料。
+
+若部署到有持久磁碟的主機，請設定 `ANALYTICS_DATA_DIR` 到可持久保存的資料夾。
+
+若部署到 serverless 平台，檔案系統可能不保證持久保存。正式收集客戶名單前，應改接資料庫、表單服務或 webhook 儲存。
+
+## 安全原則
+
+- 不提交 `.env`
+- 不提交 `.data/`
+- 不提交 API key、token、密碼
+- 不修改 Instagram、雲端硬碟或其他外部資料庫
+- 表單資料只用於服務回覆與使用追蹤
 
 ## Portable project skills
 
