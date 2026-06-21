@@ -25,6 +25,36 @@ npm.cmd run dev -- --hostname 127.0.0.1 --port 3000
 .\scripts\start-dev-server.ps1
 ```
 
+`start-dev-server.ps1` 適合開發與即時修改，但它仍是暫時程序。Codex session 關閉、Windows 登出或重新開機後，需要重新啟動。
+
+## 長時間本機展示
+
+要讓網站在背景持續運作，請使用 production watchdog：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File .\scripts\start-persistent-site.ps1
+```
+
+它會先執行 production build，再啟動 `next start`。如果 Next 程序意外退出，watchdog 會在五秒後重新啟動。
+
+停止背景網站：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\stop-persistent-site.ps1
+```
+
+建立 Windows 登入後自動啟動捷徑：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-local-site-startup.ps1
+```
+
+執行紀錄位於：
+
+```text
+.logs/dino-local-site.log
+```
+
 本機網址：
 
 ```text
