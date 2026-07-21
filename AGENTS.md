@@ -54,11 +54,15 @@ C:\Users\shaino\Documents\互動式網頁工程師Agent
 
 Default branch: `main`
 
-GitHub repo: pending confirmation. GitHub CLI currently needs re-authentication before repo creation, push, or GitHub Pages setup.
+GitHub repo: `https://github.com/shaino0807/dino-consulting-funnel`
 
-Obsidian vault: pending confirmation.
+Vercel production: `https://dino-consulting-funnel.vercel.app`
 
-Obsidian project cockpit path: pending confirmation. It must be a vault-relative path, not a path inside this work folder unless this work folder is explicitly the vault.
+GitHub Pages: `https://shaino0807.github.io/dino-consulting-funnel/` (static redirect entry to Vercel; it does not host the API or admin backend)
+
+Obsidian vault: `G:\我的雲端硬碟\oB`
+
+Obsidian project cockpit path: `互動式網頁工程師Agent/專案工作流程.md`
 
 Firebase MCP: not used by default.
 
@@ -75,4 +79,9 @@ Firebase MCP: not used by default.
 - `src/data/profile.ts`
 - `src/data/links.ts`
 - `src/data/services.ts`
+- `src/components/dino/DinoLandingPage.tsx`
+- `src/data/dino-site.ts`
+- `src/lib/analytics-store.ts`
+- `src/lib/admin-auth.ts`
+- `.github/workflows/deploy-pages.yml`
 - `scripts/restore-skills.ps1`

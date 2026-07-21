@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Dino080077-Do理in財 | 小資族現金流整理",
+  title: "Dino080077-Do理in財 | 財務顧問導流頁",
   description:
     "幫小資族把看不懂的投資理財，變成聽得懂、做得到的現金流計畫。",
   openGraph: {
@@ -24,11 +25,18 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="zh-TW">
-      <body>{children}</body>
+      <body
+        style={{
+          fontFamily:
+            "'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        }}
+      >
+        {children}
+      </body>
     </html>
   );
 }

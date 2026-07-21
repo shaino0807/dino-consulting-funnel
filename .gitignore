@@ -21,6 +21,7 @@ coverage/
 .parcel-cache/
 .turbo/
 .vercel/
+supabase/.temp/
 
 .venv/
 venv/
