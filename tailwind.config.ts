@@ -51,7 +51,20 @@ const config: Config = {
         lift: "0 12px 34px rgba(20, 25, 33, 0.16)"
       },
       fontFamily: {
-        sans: ["ui-sans-serif", "system-ui", "sans-serif"]
+        sans: [
+          "Noto Sans TC",
+          "DM Sans",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif"
+        ],
+        serif: [
+          "Noto Serif TC",
+          "DM Serif Display",
+          "ui-serif",
+          "Georgia",
+          "serif"
+        ]
       },
       keyframes: {
         "pulse-ring": {

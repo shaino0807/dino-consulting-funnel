@@ -8,7 +8,11 @@ export async function POST(request: NextRequest) {
   try {
     const input = await request.json();
     const event = await appendAnalyticsEvent(input, request.headers);
-    return NextResponse.json({ ok: true, id: event.id });
+    return NextResponse.json({
+      ok: true,
+      id: event.id,
+      leadId: "leadId" in event ? event.leadId : undefined
+    });
   } catch {
     return NextResponse.json(
       { ok: false, error: "Unable to record analytics event" },

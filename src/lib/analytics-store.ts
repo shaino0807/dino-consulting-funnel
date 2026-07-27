@@ -2,7 +2,20 @@ import { randomUUID } from "crypto";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
-export type AnalyticsEventType = "page_view" | "link_click" | "lead_submit";
+export type AnalyticsEventType =
+  | "page_view"
+  | "link_click"
+  | "lead_submit"
+  | "hero_cta_click"
+  | "topic_selected"
+  | "consultation_cta_click"
+  | "form_started"
+  | "form_validation_error"
+  | "lead_submit_success"
+  | "lead_submit_failed"
+  | "resource_expanded"
+  | "resource_opened"
+  | "booking_requested";
 export type LeadStatus = "new" | "contacted" | "booked" | "completed" | "closed";
 
 export type Attribution = {
@@ -59,6 +72,7 @@ export type AnalyticsInput = {
   href?: string;
   path?: string;
   sessionId?: string;
+  leadId?: string;
   attribution?: Attribution;
   lead?: LeadPayload;
 };
@@ -107,7 +121,21 @@ function cleanLead(lead: unknown) {
 }
 
 function isAnalyticsType(value: unknown): value is AnalyticsEventType {
-  return value === "page_view" || value === "link_click" || value === "lead_submit";
+  return [
+    "page_view",
+    "link_click",
+    "lead_submit",
+    "hero_cta_click",
+    "topic_selected",
+    "consultation_cta_click",
+    "form_started",
+    "form_validation_error",
+    "lead_submit_success",
+    "lead_submit_failed",
+    "resource_expanded",
+    "resource_opened",
+    "booking_requested"
+  ].includes(String(value));
 }
 
 function isLeadStatus(value: unknown): value is LeadStatus {
@@ -243,9 +271,9 @@ export async function appendAnalyticsEvent(input: AnalyticsInput, headers: Heade
   const attribution = cleanAttribution(input.attribution);
   const userAgent = cleanText(headers.get("user-agent"), 500);
   const referer = cleanText(headers.get("referer"), 500);
-  let leadId: string | undefined;
+  let leadId = cleanText(input.leadId, 80);
 
-  if (input.type === "lead_submit") {
+  if (input.type === "lead_submit" || input.type === "lead_submit_success") {
     const lead = cleanLead(input.lead);
     if (!lead?.name || !lead.contact || !lead.topic || !lead.consent) {
       throw new Error("Lead fields or consent are missing");

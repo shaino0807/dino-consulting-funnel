@@ -40,6 +40,15 @@ export type CourseResource = {
   category: Exclude<CourseCategory, "all">;
   badge: string;
   topics: string[];
+  href?: string;
+  status: "published" | "draft";
+  icon: LucideIcon;
+};
+
+export type ConsultationPath = {
+  title: string;
+  description: string;
+  topic: string;
   icon: LucideIcon;
 };
 
@@ -52,7 +61,8 @@ export type ConsultationScenario = {
 export type IgPost = {
   title: string;
   label: string;
-  href: string;
+  href?: string;
+  status: "published" | "draft";
   colors: string;
 };
 
@@ -69,7 +79,7 @@ export const dinoProfile = {
   promise: "先免費整理 30 分鐘，帶走財務卡點與下一步；通話不會要求購買商品。",
   instagramUrl: "https://www.instagram.com/chendino080077/",
   avatarUrl: "/dino-profile.jpg",
-  primaryCta: "私訊「健診」預約",
+  primaryCta: "申請免費健診",
   secondaryCta: "看 IG 觀點內容"
 };
 
@@ -77,7 +87,7 @@ export const navItems: NavItem[] = [
   { label: "服務", href: "#services" },
   { label: "理念", href: "#philosophy" },
   { label: "資源", href: "#resources" },
-  { label: "情境", href: "#feedback" },
+  { label: "適合誰", href: "#feedback" },
   { label: "IG", href: "#instagram" }
 ];
 
@@ -120,6 +130,27 @@ export const consultationOutputs = [
   }
 ];
 
+export const consultationPaths: ConsultationPath[] = [
+  {
+    title: "ETF 買了不少，卻不知道是否真的分散",
+    description: "先整理持股重疊、產業集中與投入節奏。",
+    topic: "ETF 與存股",
+    icon: PieChart
+  },
+  {
+    title: "收入不低，月底卻總是留不下錢",
+    description: "先找出固定支出、現金流缺口與投入順序。",
+    topic: "每月存不下錢",
+    icon: WalletCards
+  },
+  {
+    title: "擔心退休準備不足，也怕現在選錯標的",
+    description: "一起看退休目標、可投入金額與風險承受度。",
+    topic: "退休現金流",
+    icon: Compass
+  }
+];
+
 export const serviceProblemTypes = [
   "ETF 分散配置",
   "存股配置",
@@ -135,7 +166,7 @@ export const dinoServices: DinoService[] = [
     title: "免費 30 分鐘健診",
     description:
       "整理目前財務卡點，找出 1–2 個優先項目，再判斷現階段適合的規劃方向。",
-    tag: "本週接案限定 10 名",
+    tag: "每週依可預約時段安排",
     icon: CalendarCheck
   },
   {
@@ -196,8 +227,9 @@ export const courseResources: CourseResource[] = [
     description:
       "從持股重疊、產業集中和費用率開始，看懂你手上的 ETF 到底有沒有幫你分散。",
     category: "etf",
-    badge: "觀點型",
+    badge: "內容整理中",
     topics: ["重疊持股檢查", "核心與衛星配置", "定期投入節奏"],
+    status: "draft",
     icon: LineChart
   },
   {
@@ -205,8 +237,9 @@ export const courseResources: CourseResource[] = [
     description:
       "把退休生活費、保守報酬和投入年限排成表，知道現在每個月該準備多少。",
     category: "retirement",
-    badge: "最多人問",
+    badge: "內容整理中",
     topics: ["退休支出估算", "本金需求回推", "年齡層配置方向"],
+    status: "draft",
     icon: BookOpenCheck
   },
   {
@@ -214,8 +247,9 @@ export const courseResources: CourseResource[] = [
     description:
       "先整理緊急預備金、固定支出、保險和投資比例，避免一開始就被商品牽著走。",
     category: "beginner",
-    badge: "入門推薦",
+    badge: "內容整理中",
     topics: ["每月現金流", "資產負債表", "投入順序"],
+    status: "draft",
     icon: Sprout
   },
   {
@@ -223,8 +257,9 @@ export const courseResources: CourseResource[] = [
     description:
       "先確認資金水位，再決定停看盤、再平衡或分批加碼，避免情緒直接接管帳戶。",
     category: "risk",
-    badge: "實戰工具",
+    badge: "內容整理中",
     topics: ["緊急預備金", "波動承受度", "加碼規則"],
+    status: "draft",
     icon: AlertTriangle
   }
 ];
@@ -253,26 +288,26 @@ export const consultationScenarios: ConsultationScenario[] = [
 export const igPosts: IgPost[] = [
   {
     title: "買越多 ETF，真的越分散嗎？",
-    label: "Reels",
-    href: dinoProfile.instagramUrl,
+    label: "內容整理中",
+    status: "draft",
     colors: "from-[#04342c] via-[#0f5a48] to-[#d6b086]"
   },
   {
     title: "長期存股和 ETF 配置差在哪裡？",
-    label: "觀點",
-    href: dinoProfile.instagramUrl,
+    label: "內容整理中",
+    status: "draft",
     colors: "from-[#6b3f24] via-[#8a6746] to-[#f1e3d2]"
   },
   {
     title: "退休現金流缺口怎麼算？",
-    label: "教學",
-    href: dinoProfile.instagramUrl,
+    label: "內容整理中",
+    status: "draft",
     colors: "from-[#0f3f34] via-[#1d6d58] to-[#9fe1cb]"
   },
   {
     title: "市場下跌時，先做這三件事",
-    label: "SOP",
-    href: dinoProfile.instagramUrl,
+    label: "內容整理中",
+    status: "draft",
     colors: "from-[#241812] via-[#6b3f24] to-[#d9b88e]"
   }
 ];
@@ -281,6 +316,6 @@ export const footerLinks = [
   { label: "Instagram", href: dinoProfile.instagramUrl, icon: Instagram },
   { label: "服務", href: "#services", icon: ClipboardList },
   { label: "資源", href: "#resources", icon: ArrowUpRight },
-  { label: "預約", href: "#cta", icon: HeartHandshake },
+  { label: "申請健診", href: "#lead-form", icon: HeartHandshake },
   { label: "風險說明", href: "#footer", icon: ShieldCheck }
 ];

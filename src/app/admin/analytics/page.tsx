@@ -45,10 +45,27 @@ function formatDate(value: string) {
 }
 
 function metricLabel(type: string) {
-  if (type === "page_view") return "頁面瀏覽";
-  if (type === "link_click") return "連結點擊";
-  if (type === "lead_submit") return "名單送出";
-  return type;
+  const labels: Record<string, string> = {
+    page_view: "頁面瀏覽",
+    link_click: "連結點擊",
+    lead_submit: "舊版名單送出",
+    hero_cta_click: "Hero CTA",
+    topic_selected: "選擇主題",
+    consultation_cta_click: "健診內容 CTA",
+    form_started: "開始填表",
+    form_validation_error: "表單驗證錯誤",
+    lead_submit_success: "申請成功",
+    lead_submit_failed: "申請失敗",
+    resource_expanded: "展開資源",
+    resource_opened: "開啟資源",
+    booking_requested: "送出時段偏好"
+  };
+  return labels[type] || type;
+}
+
+function formatRate(numerator: number, denominator: number) {
+  if (denominator === 0) return "—";
+  return `${Math.round((numerator / denominator) * 100)}%`;
 }
 
 function statusLabel(value: LeadStatus) {
@@ -74,6 +91,19 @@ export default async function AdminAnalyticsPage({ searchParams }: AdminPageProp
   const pageViews = events.filter((event) => event.type === "page_view");
   const linkClicks = events.filter((event) => event.type === "link_click");
   const uniqueSessions = new Set(events.map((event) => event.sessionId).filter(Boolean)).size;
+  const sessionsFor = (type: string) =>
+    new Set(
+      events
+        .filter((event) => event.type === type)
+        .map((event) => event.sessionId)
+        .filter(Boolean)
+    ).size;
+  const heroCtaSessions = sessionsFor("hero_cta_click");
+  const topicSessions = sessionsFor("topic_selected");
+  const formStartedSessions = sessionsFor("form_started");
+  const leadSuccessSessions = sessionsFor("lead_submit_success");
+  const bookingRequestedSessions = sessionsFor("booking_requested");
+  const bookedLeads = leads.filter((lead) => lead.status === "booked").length;
 
   return (
     <main className="min-h-screen bg-[#f7f0e6] px-5 py-10 text-[#241812]">
@@ -116,6 +146,48 @@ export default async function AdminAnalyticsPage({ searchParams }: AdminPageProp
           <MetricCard label="連結點擊" value={linkClicks.length} icon={<MousePointerClick className="h-6 w-6" />} />
           <MetricCard label="表單名單" value={leads.length} icon={<UsersRound className="h-6 w-6" />} />
           <MetricCard label="訪客工作階段" value={uniqueSessions} icon={<BarChart3 className="h-6 w-6" />} />
+        </section>
+
+        <section className="mt-6 border border-[#d7c2aa] bg-[#fffaf3] p-5">
+          <div>
+            <p className="text-sm font-semibold text-[#1d6d58]">新版申請漏斗</p>
+            <h2 className="mt-1 text-xl font-semibold">從 CTA 到預約偏好</h2>
+          </div>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            <MetricCard
+              label="點擊申請 CTA"
+              value={heroCtaSessions}
+              detail={`占工作階段 ${formatRate(heroCtaSessions, uniqueSessions)}`}
+              icon={<MousePointerClick className="h-6 w-6" />}
+            />
+            <MetricCard
+              label="選擇主題"
+              value={topicSessions}
+              detail={`CTA → 主題 ${formatRate(topicSessions, heroCtaSessions)}`}
+              icon={<BarChart3 className="h-6 w-6" />}
+            />
+            <MetricCard
+              label="開始填表"
+              value={formStartedSessions}
+              detail={`主題 → 填表 ${formatRate(formStartedSessions, topicSessions)}`}
+              icon={<UsersRound className="h-6 w-6" />}
+            />
+            <MetricCard
+              label="申請成功"
+              value={leadSuccessSessions}
+              detail={`填表 → 成功 ${formatRate(leadSuccessSessions, formStartedSessions)}`}
+              icon={<UsersRound className="h-6 w-6" />}
+            />
+            <MetricCard
+              label="送出時段偏好"
+              value={bookingRequestedSessions}
+              detail={`成功 → 時段 ${formatRate(bookingRequestedSessions, leadSuccessSessions)}`}
+              icon={<BarChart3 className="h-6 w-6" />}
+            />
+          </div>
+          <p className="mt-4 text-sm text-[#72543f]">
+            已預約名單率：{formatRate(bookedLeads, leads.length)}（{bookedLeads}／{leads.length}）
+          </p>
         </section>
 
         <section className="mt-8 border border-[#d7c2aa] bg-[#fffaf3] p-5">
@@ -229,7 +301,17 @@ export default async function AdminAnalyticsPage({ searchParams }: AdminPageProp
   );
 }
 
-function MetricCard({ label, value, icon }: { label: string; value: number; icon: ReactNode }) {
+function MetricCard({
+  label,
+  value,
+  icon,
+  detail
+}: {
+  label: string;
+  value: ReactNode;
+  icon: ReactNode;
+  detail?: string;
+}) {
   return (
     <div className="border border-[#d7c2aa] bg-[#fffaf3] p-5 shadow-sm">
       <div className="flex items-center justify-between gap-4">
@@ -237,6 +319,7 @@ function MetricCard({ label, value, icon }: { label: string; value: number; icon
         <span className="text-[#1d6d58]">{icon}</span>
       </div>
       <p className="mt-5 text-3xl font-semibold text-[#241812]">{value}</p>
+      {detail ? <p className="mt-2 text-xs text-[#72543f]">{detail}</p> : null}
     </div>
   );
 }

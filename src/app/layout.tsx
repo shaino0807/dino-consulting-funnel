@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         style={{
           fontFamily:
-            "'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+            "'Noto Sans TC', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
         }}
       >
         {children}
