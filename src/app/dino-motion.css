@@ -1,0 +1,69 @@
+/* Shared motion layer. Content, navigation targets and layout remain in dino.css. */
+.dino-site{--motion-fast:160ms;--motion-base:280ms;--motion-enter:650ms;--motion-ease:cubic-bezier(.22,1,.36,1);--shadow-soft:0 12px 36px #04342c0d;--shadow-active:0 18px 44px #04342c17}
+.reading-progress{position:fixed;inset:0 0 auto;height:3px;background:#43866c;z-index:80;transform-origin:left;pointer-events:none}
+.hero-section{position:relative;isolation:isolate;overflow:clip}
+.hero-grid{position:relative;z-index:1}
+.hero-particles{position:absolute;inset:0;pointer-events:none;z-index:0;mask-image:linear-gradient(90deg,transparent,black 48%,black)}
+.hero-particles canvas{width:100%;height:100%;display:block}
+.hero-line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.hero-line>span{display:block;animation:hero-line-enter 900ms var(--motion-ease) both}
+.hero-line:nth-child(2)>span{animation-delay:100ms}.hero-line:nth-child(3)>span{animation-delay:200ms}
+.hero-copy>.eyebrow{animation:soft-enter 650ms var(--motion-ease) both}
+.hero-description{animation:soft-enter 750ms 240ms var(--motion-ease) both}
+.hero-actions{animation:soft-enter 750ms 330ms var(--motion-ease) both}
+.hero-note{animation:soft-enter 750ms 410ms var(--motion-ease) both}
+@keyframes hero-line-enter{from{transform:translateY(110%);opacity:.15}to{transform:translateY(0);opacity:1}}
+@keyframes soft-enter{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+.hero-visual{perspective:1200px;min-width:0}
+.hero-tilt{transform-style:preserve-3d}
+.hero-float{animation:hero-float 9s ease-in-out infinite;animation-play-state:paused}
+.hero-visual[data-ambient-active=true] .hero-float{animation-play-state:running}
+@keyframes hero-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.hero-visual .diagnosis-preview{box-shadow:10px 14px 0 #e4dfd3,0 24px 60px #04342c0b}
+.hero-visual .preview-note{position:relative;transform:translateZ(18px);box-shadow:0 8px 22px #04342c08}
+.motion-marquee{display:flex;align-items:center;gap:20px;padding:16px max(20px,calc((100% - 1240px)/2));overflow:hidden}
+.marquee-window{flex:1;min-width:0;overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 4%,black 96%,transparent)}
+.marquee-track{display:flex;width:max-content;min-width:200%;animation:expertise-loop 48s linear infinite;animation-play-state:paused}
+.motion-marquee[data-ambient-active=true] .marquee-track{animation-play-state:running}
+.motion-marquee:hover .marquee-track,.motion-marquee:focus-within .marquee-track{animation-play-state:paused}
+.marquee-copy{flex:1 0 auto;padding-right:48px}.marquee-copy p{white-space:nowrap;margin:0}
+@keyframes expertise-loop{to{transform:translateX(-50%)}}
+.ambient-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;min-width:44px;padding:8px 10px;border:1px solid var(--line);border-radius:3px;background:var(--cream);color:var(--green);font-size:11px;white-space:nowrap}
+.ambient-toggle svg{width:14px;height:14px}
+.ambient-toggle:hover{background:var(--paper)}
+.faq-item .accordion-panel{padding:0;overflow:hidden;animation:none}
+.accordion-content{padding-bottom:24px}
+.dino-site :is(.dino-button,.filter-list button,.topic-options button,.pricing-card,.video-cover,.library-grid article){transition:transform var(--motion-base) var(--motion-ease),box-shadow var(--motion-base) var(--motion-ease),background-color var(--motion-base) ease,border-color var(--motion-base) ease,color var(--motion-fast) ease}
+.dino-site :is(a,button,input,select,textarea):focus-visible{outline:2px solid #317a61;outline-offset:4px}
+.dino-site :is(input,select,textarea){transition:border-color var(--motion-fast) ease,box-shadow var(--motion-fast) ease;scroll-margin-block:120px}
+.dino-site :is(input,select,textarea):focus{box-shadow:0 0 0 3px #43866c1a}
+.form-success h3{scroll-margin-block:120px}
+.dino-button:active:not(:disabled){transform:translateY(1px) scale(.985)}
+.dino-button:disabled{cursor:wait;opacity:.65}
+.dino-button:disabled svg{animation:submit-pulse 1.1s ease-in-out infinite}
+@keyframes submit-pulse{50%{opacity:.3;transform:translateX(3px)}}
+.field-error[role=alert]{animation:soft-enter 180ms var(--motion-ease)}
+.form-success>svg{animation:soft-enter 450ms var(--motion-ease)}
+.mobile-menu::backdrop{background:#04342c66;backdrop-filter:blur(4px)}
+@media(hover:hover) and (pointer:fine){
+  .pricing-card:hover,.pricing-card:focus-within{transform:translateY(-5px);box-shadow:var(--shadow-active);border-color:#43866c77}
+  .topic-options button:hover,.topic-options button:focus-visible{box-shadow:inset 0 0 32px #43866c0a;transform:translateY(-3px)}
+  .video-resource a:hover .video-cover{transform:translateY(-4px);box-shadow:var(--shadow-soft)}
+  .library-grid article:hover{border-color:#43866c;box-shadow:0 -8px 28px #04342c05}
+}
+@media(max-width:767px){
+  .hero-particles{opacity:.55;mask-image:linear-gradient(transparent,black 55%)}
+  .hero-float{animation-name:hero-float-mobile}
+  .motion-marquee{gap:8px;padding:10px 20px}
+  .ambient-toggle{font-size:10px;padding-inline:8px}
+  .marquee-copy{padding-right:32px}
+}
+@keyframes hero-float-mobile{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){
+  .dino-site .hero-line>span,.dino-site .hero-copy>*{animation:none;transform:none;opacity:1}
+  .dino-site .hero-tilt,.dino-site .hero-float{transform:none!important}
+  .motion-marquee{flex-wrap:wrap}.marquee-window{mask-image:none;flex-basis:100%}
+  .marquee-track{width:auto;min-width:0;animation:none!important;transform:none!important}
+  .marquee-copy{padding:0}.marquee-copy p{white-space:normal}.marquee-duplicate{display:none}
+  .dino-site :is(.pricing-card,.topic-options button,.video-cover,.dino-button){transform:none!important}
+}

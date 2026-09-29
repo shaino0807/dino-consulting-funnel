@@ -70,8 +70,8 @@ export const dinoProfile = {
   name: "Dino080077-Do理in財",
   handle: "chendino080077",
   eyebrow: "小資族財務健診",
-  positioning: "專注協助小資族配置財務規劃、股票、ETF 與金融知識的財務顧問",
-  background: "半導體工程師背景，副業擔任接地氣的財務顧問，累積 12 年實務經驗。",
+  positioning: "財務整理・理財教育・陪跑",
+  background: "白天是工程師，工作之外研究金融與社會心理。在市場打滾超過 12 年，也還在往提早退休的路上。",
   heroTitle: "買了 ETF，卻說不清楚自己在投資什麼？",
   headline: "幫小資族把看不懂的投資理財，變成聽得懂、做得到的現金流計畫。",
   intro:
@@ -80,21 +80,24 @@ export const dinoProfile = {
   instagramUrl: "https://www.instagram.com/chendino080077/",
   avatarUrl: "/dino-profile.jpg",
   primaryCta: "申請免費健診",
-  secondaryCta: "看 IG 觀點內容"
+  secondaryCta: "先看看怎麼進行",
+  lineUrl: "https://line.me/R/ti/p/@558mfjcy",
+  email: "z0966105057@gmail.com",
+  youtubeUrl: "https://www.youtube.com/@hennino-u6v"
 };
 
 export const navItems: NavItem[] = [
-  { label: "服務", href: "#services" },
-  { label: "理念", href: "#philosophy" },
-  { label: "資源", href: "#resources" },
-  { label: "適合誰", href: "#feedback" },
-  { label: "IG", href: "#instagram" }
+  { label: "服務方式", href: "#services" },
+  { label: "方案費用", href: "#pricing" },
+  { label: "關於 Dino", href: "#about" },
+  { label: "財務內容", href: "#resources" },
+  { label: "FAQ", href: "#faq" }
 ];
 
 export const heroStats = [
-  { label: "財務實務經驗", value: "12 年", icon: BriefcaseBusiness },
-  { label: "累積授課學員", value: "50+", icon: GraduationCap },
-  { label: "免費財務健診", value: "30 分", icon: CalendarCheck }
+  { label: "年市場經驗", value: "12+", icon: BriefcaseBusiness },
+  { label: "位服務對象", value: "100+", icon: GraduationCap },
+  { label: "次累積諮詢", value: "500+", icon: CalendarCheck }
 ];
 
 export const credibilityProofs = [

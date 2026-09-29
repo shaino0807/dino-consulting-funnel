@@ -1,6 +1,7 @@
 import { randomUUID } from "crypto";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
+import { isValidBooking } from "./booking";
 
 export type AnalyticsEventType =
   | "page_view"
@@ -85,7 +86,9 @@ const LEADS_FILE = path.join(DATA_DIR, "analytics-leads.json");
 
 const SUPABASE_URL = process.env.SUPABASE_URL?.replace(/\/$/, "");
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const isSupabaseConfigured = Boolean(SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY);
+// Explicit development-only isolation for local QA; never bypass production storage.
+const localQaOnly = process.env.NODE_ENV === "development" && process.env.ANALYTICS_LOCAL_ONLY === "1";
+const isSupabaseConfigured = !localQaOnly && Boolean(SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY);
 
 function cleanText(value: unknown, maxLength = 500) {
   if (typeof value !== "string") return undefined;
@@ -272,6 +275,13 @@ export async function appendAnalyticsEvent(input: AnalyticsInput, headers: Heade
   const userAgent = cleanText(headers.get("user-agent"), 500);
   const referer = cleanText(headers.get("referer"), 500);
   let leadId = cleanText(input.leadId, 80);
+
+  if (input.type === "booking_requested") {
+    const [date, window] = String(input.label || "").split("|");
+    if (!leadId || !isValidBooking(date, window)) {
+      throw new Error("Invalid booking preference");
+    }
+  }
 
   if (input.type === "lead_submit" || input.type === "lead_submit_success") {
     const lead = cleanLead(input.lead);

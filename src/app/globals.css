@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+}
+
 @layer base {
   :root {
     --background: 34 56% 94%;
